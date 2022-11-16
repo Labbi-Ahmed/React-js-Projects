@@ -1,0 +1,32 @@
+*{
+    transition: .3s;
+}
+nav{
+    width: 70%;
+    margin: 0 auto;
+}
+ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    font-size: 1.2rem;
+}
+ul li{
+    
+    margin-right: .25rem;
+}
+a{
+    text-decoration: none;
+    padding: 1.5rem;
+    background-color: antiquewhite;
+
+    
+}
+ul li a:hover {
+    background-color: aliceblue;
+    color: blue;
+}
+h1{
+    margin-top: 4rem;
+}
