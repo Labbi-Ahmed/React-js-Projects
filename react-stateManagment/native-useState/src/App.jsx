@@ -1,57 +1,67 @@
-import { useState } from "react";
+import React from "react";
+import { useReducer } from "react";
 
-function NameList() {
-  const [list, setList] = useState(["labib", "habib", "rifat"]);
-  const [name, setName] = useState("");
+const initialTodos = [
+  {
+    id: 1,
+    title: "Todo 1",
+    complete: false,
+  },
+  {
+    id: 2,
+    title: "Todo 2",
+    complete: false,
+  },
+  {
+    id: 3,
+    title: "Todo 3",
+    complete: true,
+  },
+];
 
-  const onAddname = () => {
-    if (name !== "") {
-      setList([...list, name]);
-      setName("");
-    }
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "COMPLETE":
+      return state.map((todo) => {
+        if (todo.id === action.id) {
+          return { ...todo, complete: !todo.complete };
+        } else {
+          return todo;
+        }
+      });
+    default:
+      return state;
+  }
+};
+
+function Todos() {
+  const [todos, dispatch] = useReducer(reducer, initialTodos);
+
+  const handleComplete = (todo) => {
+    dispatch({ type: "COMPLETE", id: todo.id });
   };
 
   return (
-    <div>
-      <ul>
-        {list.map((name) => (
-          <li key={name}>{name}</li>
-        ))}
-      </ul>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <button onClick={onAddname}>Add Name</button>
-    </div>
+    <>
+      {todos.map((todo) => (
+        <div key={todo.id}>
+          <label>
+            <input
+              type="checkbox"
+              checked={todo.complete}
+              onClick={() => handleComplete(todo)}
+            />
+            {todo.title}
+          </label>
+        </div>
+      ))}
+    </>
   );
 }
-
-function Counter() {
-  const [count, setCoutn] = useState(10);
-  function addOne() {
-    setCoutn(count + 1);
-  }
-
-  function subOne() {
-    setCoutn(count - 1);
-  }
-
-  return (
-    <div className="App" style={{ display: "flex" }}>
-      <button onClick={addOne}>++</button>
-      <p>{count}</p>
-      <button onClick={subOne}>--</button>
-    </div>
-  );
-}
-
 function App() {
   return (
     <div>
-      <Counter />
-      <NameList />
+      <Todos />
     </div>
   );
 }

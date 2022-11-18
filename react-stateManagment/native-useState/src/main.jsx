@@ -7,6 +7,5 @@ import SetReduce from "./setReduce/SetReduce";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
-    <SetReduce />
   </React.StrictMode>
 );
